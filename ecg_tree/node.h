@@ -14,9 +14,9 @@ public:
   virtual ~Node();               // the destructor
 
   /// returns the name of the node as a string
-  std::string &get_name() const;
+  std::string const &get_name() const;
   /// sets the name of the node to name
-  void set_name(std::string &name);
+  void set_name(std::string const &name);
 
   /// returns the number of current children
   int get_nr_children() const;
@@ -25,7 +25,7 @@ public:
   Node *get_child(int i) const;
 
   /// adds the node as a child
-  void add_child(Node node);
+  void add_child(Node *node);
 };
 
 #endif
