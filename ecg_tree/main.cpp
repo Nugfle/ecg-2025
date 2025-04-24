@@ -1,8 +1,7 @@
 #include "node.h"
-#include <iostream>
 #include <string>
 
-void task11() {
+void task112() {
   std::string const &r = "root";
   std::string const &lc = "left child";
   std::string const &rc = "right child";
@@ -13,10 +12,17 @@ void task11() {
   // -> is used when accessing objects through pointers
   root->add_child(left_child);
   root->add_child(right_child);
+
+  delete root;
+}
+void task122() {
+  Node *root = Node::create_complete_tree(2, 4);
+
   delete root;
 }
 
 int main() {
-  task11();
+  task112();
+  task122();
   return 0;
 }
