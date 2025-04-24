@@ -6,7 +6,7 @@
 
 class Node {
 private:
-  std::string &name;
+  const std::string &name;
   std::vector<Node *> children;
 
 public:
