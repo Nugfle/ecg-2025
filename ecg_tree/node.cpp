@@ -1,5 +1,8 @@
 #include "node.h"
+#include <iomanip>
+#include <ios>
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -45,4 +48,18 @@ Node *Node::create_complete_tree(int nr_child_nodes, int tree_depth) {
         current->create_complete_tree(nr_child_nodes, tree_depth - 1));
   }
   return current;
+}
+
+void Node::print(std::ostream &str, int indent) const {
+  std::string name = get_name();
+  name.insert(name.begin(), indent * 3, ' ');
+  str << name << std::endl;
+  for (Node *child : children) {
+    child->print(str, indent + 1);
+  }
+}
+
+extern std::ostream &operator<<(std::ostream &os, Node const &node) {
+  node.print(os);
+  return os;
 }

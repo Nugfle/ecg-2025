@@ -1,6 +1,9 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <cstdio>
+#include <ostream>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -35,6 +38,10 @@ public:
   /// creates a tree of given depth, where each node has nr_child_nodes
   /// children, so nr_child_nodes ^ tree_depth nodes
   static Node *create_complete_tree(int nr_child_nodes, int tree_depth);
+
+  /// recursively prints the tree into the stream
+  void print(std::ostream &str, int indent = 0) const;
 };
+extern std::ostream &operator<<(std::ostream &os, Node const &node);
 
 #endif
