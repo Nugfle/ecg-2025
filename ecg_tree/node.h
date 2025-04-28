@@ -1,17 +1,25 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <collection.h>
 #include <cstdio>
+#include <memory>
 #include <ostream>
 #include <random>
+#include <set>
+#include <stack>
 #include <string>
 #include <vector>
 
 class Node {
 private:
   std::string name;
-  std::vector<Node *> children;
+  std::vector<std::shared_ptr<Node>> children;
   static int node_id;
+
+  void print_cycle(std::ostream &str,
+                   std::stack<std::shared_ptr<Node>> visitedstack,
+                   std::shared_ptr<Node> target) const;
 
 public:
   // the constructor
@@ -30,18 +38,33 @@ public:
 
   /// returns a pointer to the ith child. I must not be negative or greater then
   /// or equal to get_nr_children()
-  Node *get_child(int i) const;
+  std::shared_ptr<Node> get_child(int i) const;
 
   /// adds the node as a child
-  void add_child(Node *node);
+  void add_child(std::shared_ptr<Node> node);
 
   /// creates a tree of given depth, where each node has nr_child_nodes
   /// children, so nr_child_nodes ^ tree_depth nodes
-  static Node *create_complete_tree(int nr_child_nodes, int tree_depth);
+  static std::shared_ptr<Node> create_complete_tree(int nr_child_nodes,
+                                                    int tree_depth);
 
   /// recursively prints the tree into the stream
   void print(std::ostream &str, int indent = 0) const;
+
+  /// detects cycles and puts them into the stream
+  void print_detect_cycle(std::ostream &str, std::shared_ptr<Node> current,
+                          std::set<std::shared_ptr<Node>> visitedset =
+                              std::set<std::shared_ptr<Node>>(),
+                          std::stack<std::shared_ptr<Node>> visitedstack =
+                              std::stack<std::shared_ptr<Node>>()) const;
+
+  /// detects cycles and resolves them, by removing the "bad" references
+  /// call this if your graph can contain cycles, to avoid memory leaks
+  void cleanup_cycles(std::shared_ptr<Node> current,
+                      std::set<std::shared_ptr<Node>> visitedset =
+                          std::set<std::shared_ptr<Node>>());
 };
+
 extern std::ostream &operator<<(std::ostream &os, Node const &node);
 
 #endif
