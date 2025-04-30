@@ -21,6 +21,9 @@ private:
                    std::stack<std::shared_ptr<Node>> visitedstack,
                    std::shared_ptr<Node> target) const;
 
+  static std::shared_ptr<Node> create_complete_tree_raw(int nr_child_nodes,
+                                                        int tree_depth);
+
 public:
   // the constructor
   Node(const std::string &name);
@@ -45,8 +48,8 @@ public:
 
   /// creates a tree of given depth, where each node has nr_child_nodes
   /// children, so nr_child_nodes ^ tree_depth nodes
-  static std::shared_ptr<Node> create_complete_tree(int nr_child_nodes,
-                                                    int tree_depth);
+  static std::shared_ptr<Node>
+  create_complete_tree(int nr_child_nodes, int tree_depth, int id = node_id);
 
   /// recursively prints the tree into the stream
   void print(std::ostream &str, int indent = 0) const;
@@ -57,6 +60,11 @@ public:
                               std::set<std::shared_ptr<Node>>(),
                           std::stack<std::shared_ptr<Node>> visitedstack =
                               std::stack<std::shared_ptr<Node>>()) const;
+
+  /// detects cycles and puts them into the stream, this method uses an
+  /// iterative approach
+  void print_detect_cycle_iter(std::ostream &str,
+                               std::shared_ptr<Node> current) const;
 
   /// detects cycles and resolves them, by removing the "bad" references
   /// call this if your graph can contain cycles, to avoid memory leaks
