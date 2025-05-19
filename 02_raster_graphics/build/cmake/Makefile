@@ -441,6 +441,30 @@ home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exercise2.dir/build.make CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.s
 .PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.s
 
+home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.o: home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o
+.PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.o
+
+# target to build an object file
+home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exercise2.dir/build.make CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o
+.PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o
+
+home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.i: home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i
+.PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.i
+
+# target to preprocess a source file
+home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exercise2.dir/build.make CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i
+.PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i
+
+home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.s: home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s
+.PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.s
+
+# target to generate assembly for a file
+home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exercise2.dir/build.make CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s
+.PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s
+
 home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.o: home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.cpp.o
 .PHONY : home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.o
 
@@ -513,6 +537,9 @@ help:
 	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.o"
 	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.i"
 	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.s"
+	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.o"
+	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.i"
+	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.s"
 	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.o"
 	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.i"
 	@echo "... home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.s"

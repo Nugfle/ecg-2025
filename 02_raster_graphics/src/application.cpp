@@ -4,7 +4,6 @@
 // Copyright (C) 2016 CGV TU Dresden - All Rights Reserved
 //
 #include "application.h"
-
 #include "bresenham_circle_tool.h"
 #include "bresenham_line_tool.h"
 #include "dda_line_tool.h"
@@ -13,6 +12,7 @@
 #include "pen_tool.h"
 #include "rectangle_tool.h"
 #include "recursive_fill_tool.h"
+#include "sweep_line_tool.h"
 #include <math.h>
 #include <sstream>
 
@@ -126,6 +126,10 @@ void application::context_menu_select(int item) {
   case MA_FILL_LINE:
     set_tool(new line_fill_tool(*canvas));
     break;
+  // Set the sweep line tool
+  case MA_SWEEP_LINE:
+    set_tool(new sweep_line_tool(*canvas));
+    break;
 
   // Clear the canvas
   case MA_CLEAR_CANVAS:
@@ -174,6 +178,7 @@ void application::setup_context_menu() {
   glutAddMenuEntry(" Recursive Fill            (r) ", MA_FILL_RECURSIVE);
   glutAddMenuEntry(" Non-recursive Fill        (f) ", MA_FILL_NONRECURSIVE);
   glutAddMenuEntry(" Line-Fill                 (l) ", MA_FILL_LINE);
+  glutAddMenuEntry(" Sweep-Line                (h) ", MA_SWEEP_LINE);
   glutAddMenuEntry(" ------- Miscellaneous ------- ", -1);
   glutAddMenuEntry(" Clear canvas              (c) ", MA_CLEAR_CANVAS);
   glutAddMenuEntry(" Draw test shape           (t) ", MA_TEST_SHAPE);
@@ -251,6 +256,9 @@ void application::key_down(unsigned char key, int x, int y) {
     break;
   case 'l':
     context_menu_select(MA_FILL_LINE);
+    break;
+  case 'h':
+    context_menu_select(MA_SWEEP_LINE);
     break;
   // Space or "c" clears the canvas
   case 'c':

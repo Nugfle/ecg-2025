@@ -61,20 +61,18 @@ Line-Fill-Algorithmus. Falls benoetigt koennen Sie sich Helfermethoden in der
 dazugehoerigen Header-Datei deklarieren und in dieser Datei definieren.
   *************/
   std::stack<waiting_line> unvisited = std::stack<waiting_line>();
-  std::set<waiting_line, Comp> lines = std::set<waiting_line, Comp>();
+
   waiting_line start = find_right_border(x, y);
-  std::cout << "startx: " << start.x << "starty: " << start.y << std::endl;
   unvisited.push(start);
 
   while (!unvisited.empty()) {
     waiting_line current_line = unvisited.top();
+    std::set<waiting_line, Comp> lines = std::set<waiting_line, Comp>();
 
     int cx = current_line.x;
     int cy = current_line.y;
 
     unvisited.pop();
-    lines.clear();
-    std::cout << "curx: " << cx << "cury: " << cy << std::endl;
 
     while (!is_on_border_left(cx, cy)) {
       canvas.set_pixel(cx, cy);

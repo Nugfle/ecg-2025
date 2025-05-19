@@ -254,10 +254,24 @@ CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/rectang
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/rectangle_tool.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/niklas/Programs/ecg/02_raster_graphics/src/rectangle_tool.cpp -o CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/rectangle_tool.cpp.s
 
+CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o: CMakeFiles/exercise2.dir/flags.make
+CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o: /home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp
+CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o: CMakeFiles/exercise2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/niklas/Programs/ecg/02_raster_graphics/build/cmake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o -MF CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o.d -o CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o -c /home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp
+
+CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp > CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.i
+
+CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp -o CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.s
+
 CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o: CMakeFiles/exercise2.dir/flags.make
 CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o: /home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp
 CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o: CMakeFiles/exercise2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/niklas/Programs/ecg/02_raster_graphics/build/cmake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/niklas/Programs/ecg/02_raster_graphics/build/cmake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o -MF CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o.d -o CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o -c /home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp
 
 CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.i: cmake_force
@@ -283,6 +297,7 @@ exercise2_OBJECTS = \
 "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/pen_tool.cpp.o" \
 "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/preview_renderer.cpp.o" \
 "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/rectangle_tool.cpp.o" \
+"CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o" \
 "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o"
 
 # External object files for target exercise2
@@ -301,6 +316,7 @@ exercise2: CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/
 exercise2: CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/pen_tool.cpp.o
 exercise2: CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/preview_renderer.cpp.o
 exercise2: CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/rectangle_tool.cpp.o
+exercise2: CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o
 exercise2: CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o
 exercise2: CMakeFiles/exercise2.dir/build.make
 exercise2: CMakeFiles/exercise2.dir/compiler_depend.ts
@@ -311,7 +327,7 @@ exercise2: /usr/lib/libGL.so
 exercise2: /usr/lib/libXmu.so
 exercise2: /usr/lib/libXi.so
 exercise2: CMakeFiles/exercise2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/niklas/Programs/ecg/02_raster_graphics/build/cmake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable exercise2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/niklas/Programs/ecg/02_raster_graphics/build/cmake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable exercise2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/exercise2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

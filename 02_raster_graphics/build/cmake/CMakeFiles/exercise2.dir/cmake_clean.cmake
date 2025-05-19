@@ -26,6 +26,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/rectangle_tool.cpp.o.d"
   "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o"
   "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/recursive_fill_tool.cpp.o.d"
+  "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o"
+  "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/sweep_line_tool.cpp.o.d"
   "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.cpp.o"
   "CMakeFiles/exercise2.dir/home/niklas/Programs/ecg/02_raster_graphics/src/tool_base.cpp.o.d"
   "exercise2"

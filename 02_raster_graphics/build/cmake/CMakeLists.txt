@@ -23,6 +23,7 @@ set(HEADERS
 	../../include/preview_renderer.h
 	../../include/rectangle_tool.h
 	../../include/recursive_fill_tool.h
+	../../include/sweep_line_tool.h
 	../../include/tiny_vec.h
 )
 
@@ -41,6 +42,7 @@ set(SOURCES
 	../../src/pen_tool.cpp
 	../../src/preview_renderer.cpp
 	../../src/rectangle_tool.cpp
+	../../src/sweep_line_tool.cpp
 	../../src/recursive_fill_tool.cpp
 )
 
