@@ -185,14 +185,15 @@ Methode "glTexCoord2d".
 
     // Draw one strip
     for (int x = 0; x < map_width; x++) {
-      glVertex3d(y, get_heightmap_value(x, y), x);
-      set_normal(x, y);
       glTexCoord2d(((double)x) / get_heightmap_width(),
                    ((double)y) / get_heightmap_height());
-      glVertex3d(y + 1, get_heightmap_value(x, y + 1), x);
-      set_normal(x, y + 1);
+      set_normal(x, y);
+      glVertex3d(y, get_heightmap_value(x, y), x);
+
       glTexCoord2d(((double)x) / get_heightmap_width(),
                    ((double)y + 1) / get_heightmap_height());
+      set_normal(x, y + 1);
+      glVertex3d(y + 1, get_heightmap_value(x, y + 1), x);
     }
     glEnd();
   }
