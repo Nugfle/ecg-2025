@@ -6,6 +6,7 @@
 #include "terrain.h"
 #include "tiny_vec.h"
 #include <GL/gl.h>
+#include <GL/glext.h>
 
 // Load images and initialize variables
 terrain::terrain() {
@@ -111,7 +112,6 @@ void terrain::render_solid_terrain() {
   // Disable lighting
   glDisable(GL_LIGHTING);
 }
-
 // Render the terrain as wireframe
 void terrain::render_wireframe_terrain() {
   // Set the line width to be 1 pixel
@@ -127,7 +127,81 @@ void terrain::render_wireframe_terrain() {
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
+/********
 // Render the terrain
+void terrain::render_terrain() {
+// Store width and height for faster access
+int map_width = get_heightmap_width();
+int map_height = get_heightmap_height();
+
+// Move and scale the coordinate system so that we can work with
+// whole units. That means that a vertex at height map position (x, y)
+// with a height of h can be placed as glVertex3d(x, h, y). The
+// terrain extents in the XZ-layer while the height is on the Y-axis.
+glPushMatrix();
+glTranslated(-1, 0, -1);
+glScaled(2.0 / static_cast<double>(map_width), 1.0 / 256.0,
+         2.0 / static_cast<double>(map_height));
+
+/********
+Task 2.2.1.    Complete the code below to create a regular grid which expands
+               along the X-Z-layer. Create the grid by specifying triangle
+                           strips for each line. The coordinate system is
+already scaled and translated to use the values of the variables "x" and "y"
+                           defined below directly as coordinates. The initial
+height of the grid shall be 0. Aufgabe 2.2.1. Vervollstaendigen Sie den
+nachfolgenden Quelltext um die Erstellung eines regelmaessigen Gitters das sich
+ueber die X-Z-Ebene erstreckt. Erstellen Sie dieses Gitter, indem Sie
+                           zeilenweise Dreiecksstreifen definieren. Das
+Koordinatensystem ist bereits skaliert und verschoben, so dass Sie die Werte der
+Variablen "x" und "y", die unten definiert werden direkt als Koordinaten
+einsetzen koennen. Das Gitter soll zunaechst eine Hoehe von 0 besitzen.
+
+
+Task 2.2.2.    Now elevate the height of the vertices to create the grid
+terrain that corresponds to the height map. Use "get_heightmap_value(x, y)".
+Aufgabe 2.2.2. Heben Sie jetzt die Vertices an um ein Drahtgitterterrain zu
+erstellen, das zur Hoehenkarte korrespondiert. Nutzen Sie die Methode
+                           "get_heightmap_value(x, y)".
+
+
+Task 2.2.3.    Make sure to call "set_normal" for every vertex and continue
+this task in "set_normal". Aufgabe 2.2.3. Stellen Sie sicher, dass Sie
+"set_normal" für jeden Vertex aufrufen und fahren Sie in "set_normal" mit der
+Aufgabe fort.
+
+
+Task 2.2.4.    Activate texture mapping and bind the texture in the method
+               "render_solid_terrain". Provide 2D texture coordinates per
+vertex in this method using "glTexCoord2d". Aufgabe 2.2.4. Aktivieren Sie
+Texturmapping und binden Sie eine Textur in der Methode "render_solid_terrain".
+Spezifizieren Sie in dieser Methode pro Vertex eine Texturkoordinate mittels der
+Methode "glTexCoord2d".
+*********/
+
+/********
+// Go through all rows (-1)
+for (int y = 0; y < map_height - 1; y++) {
+
+  glBegin(GL_TRIANGLE_STRIP);
+
+  // Draw one strip
+  for (int x = 0; x < map_width; x++) {
+    glVertex3d(y, get_heightmap_value(x, y), x);
+    set_normal(x, y);
+    glTexCoord2d(((double)x) / get_heightmap_width(),
+                 ((double)y) / get_heightmap_height());
+    glVertex3d(y + 1, get_heightmap_value(x, y + 1), x);
+    set_normal(x, y + 1);
+    glTexCoord2d(((double)x) / get_heightmap_width(),
+                 ((double)y + 1) / get_heightmap_height());
+  }
+  glEnd();
+}
+
+glPopMatrix();
+}
+*********/
 void terrain::render_terrain() {
   // Store width and height for faster access
   int map_width = get_heightmap_width();
@@ -142,62 +216,19 @@ void terrain::render_terrain() {
   glScaled(2.0 / static_cast<double>(map_width), 1.0 / 256.0,
            2.0 / static_cast<double>(map_height));
 
-  /********
-  Task 2.2.1.    Complete the code below to create a regular grid which expands
-                 along the X-Z-layer. Create the grid by specifying triangle
-                             strips for each line. The coordinate system is
-already scaled and translated to use the values of the variables "x" and "y"
-                             defined below directly as coordinates. The initial
-height of the grid shall be 0. Aufgabe 2.2.1. Vervollstaendigen Sie den
-nachfolgenden Quelltext um die Erstellung eines regelmaessigen Gitters das sich
-ueber die X-Z-Ebene erstreckt. Erstellen Sie dieses Gitter, indem Sie
-                             zeilenweise Dreiecksstreifen definieren. Das
-Koordinatensystem ist bereits skaliert und verschoben, so dass Sie die Werte der
-Variablen "x" und "y", die unten definiert werden direkt als Koordinaten
-einsetzen koennen. Das Gitter soll zunaechst eine Hoehe von 0 besitzen.
+#include <GL/glext.h>
 
+  GLuint VBO;
+  glGenBuffers(1, &VBO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-  Task 2.2.2.    Now elevate the height of the vertices to create the grid
-terrain that corresponds to the height map. Use "get_heightmap_value(x, y)".
-Aufgabe 2.2.2. Heben Sie jetzt die Vertices an um ein Drahtgitterterrain zu
-erstellen, das zur Hoehenkarte korrespondiert. Nutzen Sie die Methode
-                             "get_heightmap_value(x, y)".
-
-
-  Task 2.2.3.    Make sure to call "set_normal" for every vertex and continue
-this task in "set_normal". Aufgabe 2.2.3. Stellen Sie sicher, dass Sie
-"set_normal" für jeden Vertex aufrufen und fahren Sie in "set_normal" mit der
-Aufgabe fort.
-
-
-Task 2.2.4.    Activate texture mapping and bind the texture in the method
-                 "render_solid_terrain". Provide 2D texture coordinates per
-vertex in this method using "glTexCoord2d". Aufgabe 2.2.4. Aktivieren Sie
-Texturmapping und binden Sie eine Textur in der Methode "render_solid_terrain".
-Spezifizieren Sie in dieser Methode pro Vertex eine Texturkoordinate mittels der
-Methode "glTexCoord2d".
-*********/
-
-  // Go through all rows (-1)
   for (int y = 0; y < map_height - 1; y++) {
-
-    glBegin(GL_TRIANGLE_STRIP);
 
     // Draw one strip
     for (int x = 0; x < map_width; x++) {
-      glVertex3d(y, get_heightmap_value(x, y), x);
-      set_normal(x, y);
-      glTexCoord2d(((double)x) / get_heightmap_width(),
-                   ((double)y) / get_heightmap_height());
-      glVertex3d(y + 1, get_heightmap_value(x, y + 1), x);
-      set_normal(x, y + 1);
-      glTexCoord2d(((double)x) / get_heightmap_width(),
-                   ((double)y + 1) / get_heightmap_height());
     }
     glEnd();
   }
-
-  glPopMatrix();
 }
 
 // Calculate and set the normal for height map entry (x,y)
@@ -206,11 +237,11 @@ void terrain::set_normal(int x, int y) {
   Task 2.2.3.    Calculate the normal for the vertex that corresponds to
                  the height map value (x, y). You can either use forward
 differences, backward differences or central differences. The latter will give
-                             the best results. The calculation is done by first
-determining direction vectors in X and Z and then using vector operations to get
-a vector that is perpendicular to both. You find some examples for vector
-operations in this project below. Do not forget to pass the normal to OpenGL
-using the command glNormal3d.
+                             the best results. The calculation is done by
+first determining direction vectors in X and Z and then using vector
+operations to get a vector that is perpendicular to both. You find some
+examples for vector operations in this project below. Do not forget to pass
+the normal to OpenGL using the command glNormal3d.
 
   Aufgabe 2.2.3. Berechnen Sie die Normalen fuer den Vertex der zum Hoehenwert
 (x, y) gehoert. Sie koennen entweder Vorwaerts-, Rueckwaerts- oder Zentral-
@@ -218,8 +249,8 @@ using the command glNormal3d.
 die besten Resultate. Fuer die Berechnung werden zunaechst Richtungvektoren in
 X- und Z-Richtung gebildet und anschliessend mittels Vektoroperationen ein zu
 beiden Vektoren senkrechter Vektor berechnet. Nachfolgend ein paar Beispiele
-fuer Vektor- rechnungen in diesem Projekt. Vergessen Sie nicht die Normale nach
-der Berechnung mittels glNormal3d an OpenGL zu senden.
+fuer Vektor- rechnungen in diesem Projekt. Vergessen Sie nicht die Normale
+nach der Berechnung mittels glNormal3d an OpenGL zu senden.
 
                              // Create a vector
                              vec3d vec1(1.0, 1.0, 1.0);
@@ -283,12 +314,11 @@ void terrain::render_level_lines() {
 // Create height lines for the level "level"
 void terrain::create_level_line(int level) {
   /********
-  Additional Task: Find iso lines with the "Marching Squares" algorithm for the
-                   height value "level". Store the start and end points of the
-                                   found lines in the list "level_lines".
-Zusatzaufgabe:   Finden Sie Hoehenlinien mittels des "Marching
-Squares"-Algorithmus fuer den Hoehenwert "level". Legen Sie die Start- und
-Endpunkte der gefundenen Linien in der Liste "level_lines" ab.
+  Additional Task: Find iso lines with the "Marching Squares" algorithm for
+the height value "level". Store the start and end points of the found lines in
+the list "level_lines". Zusatzaufgabe:   Finden Sie Hoehenlinien mittels des
+"Marching Squares"-Algorithmus fuer den Hoehenwert "level". Legen Sie die
+Start- und Endpunkte der gefundenen Linien in der Liste "level_lines" ab.
   *************/
 }
 
