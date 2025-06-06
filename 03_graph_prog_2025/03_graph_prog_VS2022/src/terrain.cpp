@@ -1,12 +1,13 @@
-//
 // This source code is property of the Computer Graphics and Visualization
 // chair of the TU Dresden. Do not distribute in modified or unmodified form!
 // Copyright (C) 2016 CGV TU Dresden - All Rights Reserved
 //
 #include "terrain.h"
 #include "tiny_vec.h"
+#include <GL/freeglut_ext.h>
 #include <GL/gl.h>
 #include <GL/glext.h>
+#include <vector>
 
 // Load images and initialize variables
 terrain::terrain() {
@@ -32,6 +33,7 @@ terrain::terrain() {
   set_show_solid(true);
   set_show_wireframe(false);
   set_show_levels(false);
+  init();
 }
 
 // Unload images and textures
@@ -202,10 +204,30 @@ for (int y = 0; y < map_height - 1; y++) {
 glPopMatrix();
 }
 *********/
-void terrain::render_terrain() {
-  // Store width and height for faster access
+void terrain::init() {
   int map_width = get_heightmap_width();
   int map_height = get_heightmap_height();
+
+  std::vector<float> buf;
+
+  for (int y = 0; y < map_height - 1; y++) {
+
+    // Draw one strip
+    for (int x = 0; x < map_width; x++) {
+      glVertex3d(y, get_heightmap_value(x, y), x);
+      set_normal(x, y);
+      glTexCoord2d(((double)x) / get_heightmap_width(),
+                   ((double)y) / get_heightmap_height());
+      glVertex3d(y + 1, get_heightmap_value(x, y + 1), x);
+      set_normal(x, y + 1);
+      glTexCoord2d(((double)x) / get_heightmap_width(),
+                   ((double)y + 1) / get_heightmap_height());
+    }
+    glEnd();
+  }
+}
+void terrain::render_terrain() {
+  // Store width and height for faster access
 
   // Move and scale the coordinate system so that we can work with
   // whole units. That means that a vertex at height map position (x, y)
@@ -213,22 +235,9 @@ void terrain::render_terrain() {
   // terrain extents in the XZ-layer while the height is on the Y-axis.
   glPushMatrix();
   glTranslated(-1, 0, -1);
+
   glScaled(2.0 / static_cast<double>(map_width), 1.0 / 256.0,
            2.0 / static_cast<double>(map_height));
-
-#include <GL/glext.h>
-
-  GLuint VBO;
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-  for (int y = 0; y < map_height - 1; y++) {
-
-    // Draw one strip
-    for (int x = 0; x < map_width; x++) {
-    }
-    glEnd();
-  }
 }
 
 // Calculate and set the normal for height map entry (x,y)

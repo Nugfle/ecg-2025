@@ -4,10 +4,11 @@
 // Copyright (C) 2016 CGV TU Dresden - All Rights Reserved
 //
 #include "application.h"
+#include <GL/freeglut_ext.h>
+#include <GL/gl.h>
 #include <GL/glew.h>
 
 #include <math.h>
-#include <sstream>
 
 #include "cube_system.h"
 #include "cube_system_split.h"
@@ -32,9 +33,12 @@ application::application() {
 
 // Run the program using the command line arguments
 int application::run(int argc, char *argv[]) {
+  std::cout << glGetString(GL_VERSION) << std::endl;
   // Initialize the GLUT system and let it evaluate additional
   // command line arguments.
   glutInit(&argc, argv);
+  glutInitContextVersion(3, 3);
+  glutInitContextProfile(GLUT_CORE_PROFILE);
 
   // Set the openGL display mode to double buffering and have
   // channels R,G,B active.
@@ -43,6 +47,7 @@ int application::run(int argc, char *argv[]) {
   // Initialize main window size
   glutInitWindowSize(640, 480);
   // Set a title
+
   glutCreateWindow("ECG OpenGL");
 
   // Set the context menu
@@ -64,13 +69,12 @@ int application::run(int argc, char *argv[]) {
   // Run the timer callback which will trigger itself in the future
   timer_callback(0);
 
-  glewInit();
-
   // The main loop runs the program itself. It repeatedly asks
   // the operating system whether there are events to process
   // and, according to the type of the event, calls the right
   // method (that was defined above).
   glutMainLoop();
+  glewInit();
 
   return 0;
 }

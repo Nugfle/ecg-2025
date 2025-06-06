@@ -2220,7 +2220,9 @@ CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_pr
   /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/include/abstract_scene.h \
   /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/include/terrain.h \
   /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/include/tiny_vec.h \
+  /usr/include/GL/freeglut_ext.h \
   /usr/include/GL/freeglut_std.h \
+  /usr/include/GL/freeglut_ucall.h \
   /usr/include/GL/gl.h \
   /usr/include/GL/glext.h \
   /usr/include/GL/glu.h \
@@ -2464,7 +2466,9 @@ exercise3: /usr/lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/libgcc.a \
   /usr/lib/ld-linux-x86-64.so.2 \
+  /usr/lib/libEGL.so.1 \
   /usr/lib/libGL.so \
+  /usr/lib/libGLEW.so \
   /usr/lib/libGLU.so \
   /usr/lib/libGLX.so.0 \
   /usr/lib/libGLdispatch.so.0 \
@@ -2488,6 +2492,7 @@ exercise3: /usr/lib/Scrt1.o \
   /usr/lib/libmvec.so.1 \
   /usr/lib/libuuid.so.1 \
   /usr/lib/libxcb.so.1 \
+  /usr/lib32/libEGL.so.1 \
   /usr/lib32/libGLX.so.0 \
   /usr/lib32/libGLdispatch.so.0 \
   /usr/lib32/libOpenGL.so.0 \
@@ -2591,6 +2596,8 @@ CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_pr
 /usr/lib/libGLdispatch.so.0:
 
 /usr/lib/libGLX.so.0:
+
+/usr/lib/libGLEW.so:
 
 /usr/lib/ld-linux-x86-64.so.2:
 
@@ -2707,6 +2714,8 @@ CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_pr
 /usr/include/GL/glext.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stddef.h:
+
+/usr/lib/libEGL.so.1:
 
 /usr/include/c++/15.1.1/ext/type_traits.h:
 
@@ -2945,6 +2954,8 @@ CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_pr
 /usr/include/bits/types/cookie_io_functions_t.h:
 
 /usr/include/c++/15.1.1/stdlib.h:
+
+/usr/lib32/libEGL.so.1:
 
 /usr/include/bits/types/timer_t.h:
 

@@ -2,10 +2,10 @@ cmake_minimum_required( VERSION 3.10 )
 
 project(exercise3)
 
-
 # Gebraucht werden OpenGL und GLUT
-find_package(OpenGL REQUIRED)
+find_package(OpenGL 3.3 REQUIRED)
 find_package(GLUT REQUIRED)
+find_package(GLEW REQUIRED)
 
 
 # Definition der Headerdateien
@@ -61,4 +61,5 @@ target_link_libraries(exercise3
 	OpenGL::GL
 	OpenGL::GLU
 	GLUT::GLUT
+    GLEW::GLEW
 )

@@ -275,6 +275,7 @@ exercise3: CMakeFiles/exercise3.dir/compiler_depend.ts
 exercise3: /usr/lib/libGL.so
 exercise3: /usr/lib/libGLU.so
 exercise3: /usr/lib/libglut.so
+exercise3: /usr/lib/libGLEW.so
 exercise3: /usr/lib/libGL.so
 exercise3: /usr/lib/libXmu.so
 exercise3: /usr/lib/libXi.so
