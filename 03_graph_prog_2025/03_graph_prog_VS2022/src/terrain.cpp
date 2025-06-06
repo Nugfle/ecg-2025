@@ -6,6 +6,7 @@
 #include "terrain.h"
 #include "tiny_vec.h"
 #include <GL/gl.h>
+#include <vector>
 
 // Load images and initialize variables
 terrain::terrain() {
@@ -142,42 +143,6 @@ void terrain::render_terrain() {
   glScaled(2.0 / static_cast<double>(map_width), 1.0 / 256.0,
            2.0 / static_cast<double>(map_height));
 
-  /********
-  Task 2.2.1.    Complete the code below to create a regular grid which expands
-                 along the X-Z-layer. Create the grid by specifying triangle
-                             strips for each line. The coordinate system is
-already scaled and translated to use the values of the variables "x" and "y"
-                             defined below directly as coordinates. The initial
-height of the grid shall be 0. Aufgabe 2.2.1. Vervollstaendigen Sie den
-nachfolgenden Quelltext um die Erstellung eines regelmaessigen Gitters das sich
-ueber die X-Z-Ebene erstreckt. Erstellen Sie dieses Gitter, indem Sie
-                             zeilenweise Dreiecksstreifen definieren. Das
-Koordinatensystem ist bereits skaliert und verschoben, so dass Sie die Werte der
-Variablen "x" und "y", die unten definiert werden direkt als Koordinaten
-einsetzen koennen. Das Gitter soll zunaechst eine Hoehe von 0 besitzen.
-
-
-  Task 2.2.2.    Now elevate the height of the vertices to create the grid
-terrain that corresponds to the height map. Use "get_heightmap_value(x, y)".
-Aufgabe 2.2.2. Heben Sie jetzt die Vertices an um ein Drahtgitterterrain zu
-erstellen, das zur Hoehenkarte korrespondiert. Nutzen Sie die Methode
-                             "get_heightmap_value(x, y)".
-
-
-  Task 2.2.3.    Make sure to call "set_normal" for every vertex and continue
-this task in "set_normal". Aufgabe 2.2.3. Stellen Sie sicher, dass Sie
-"set_normal" für jeden Vertex aufrufen und fahren Sie in "set_normal" mit der
-Aufgabe fort.
-
-
-Task 2.2.4.    Activate texture mapping and bind the texture in the method
-                 "render_solid_terrain". Provide 2D texture coordinates per
-vertex in this method using "glTexCoord2d". Aufgabe 2.2.4. Aktivieren Sie
-Texturmapping und binden Sie eine Textur in der Methode "render_solid_terrain".
-Spezifizieren Sie in dieser Methode pro Vertex eine Texturkoordinate mittels der
-Methode "glTexCoord2d".
-*********/
-
   // Go through all rows (-1)
   for (int y = 0; y < map_height - 1; y++) {
 
@@ -185,15 +150,13 @@ Methode "glTexCoord2d".
 
     // Draw one strip
     for (int x = 0; x < map_width; x++) {
-      glTexCoord2d(((double)x) / get_heightmap_width(),
-                   ((double)y) / get_heightmap_height());
+      glTexCoord2d(((double)x) / map_width, ((double)y) / map_height);
       set_normal(x, y);
-      glVertex3d(y, get_heightmap_value(x, y), x);
+      glVertex3d(x, get_heightmap_value(x, y), y);
 
-      glTexCoord2d(((double)x) / get_heightmap_width(),
-                   ((double)y + 1) / get_heightmap_height());
+      glTexCoord2d(((double)x) / map_width, ((double)y + 1) / map_height);
       set_normal(x, y + 1);
-      glVertex3d(y + 1, get_heightmap_value(x, y + 1), x);
+      glVertex3d(x, get_heightmap_value(x, y + 1), y + 1);
     }
     glEnd();
   }
@@ -203,49 +166,10 @@ Methode "glTexCoord2d".
 
 // Calculate and set the normal for height map entry (x,y)
 void terrain::set_normal(int x, int y) {
-  /********
-  Task 2.2.3.    Calculate the normal for the vertex that corresponds to
-                 the height map value (x, y). You can either use forward
-differences, backward differences or central differences. The latter will give
-                             the best results. The calculation is done by first
-determining direction vectors in X and Z and then using vector operations to get
-a vector that is perpendicular to both. You find some examples for vector
-operations in this project below. Do not forget to pass the normal to OpenGL
-using the command glNormal3d.
-
-  Aufgabe 2.2.3. Berechnen Sie die Normalen fuer den Vertex der zum Hoehenwert
-(x, y) gehoert. Sie koennen entweder Vorwaerts-, Rueckwaerts- oder Zentral-
-                             Differenzen verwenden. Die letzte Methode erzeugt
-die besten Resultate. Fuer die Berechnung werden zunaechst Richtungvektoren in
-X- und Z-Richtung gebildet und anschliessend mittels Vektoroperationen ein zu
-beiden Vektoren senkrechter Vektor berechnet. Nachfolgend ein paar Beispiele
-fuer Vektor- rechnungen in diesem Projekt. Vergessen Sie nicht die Normale nach
-der Berechnung mittels glNormal3d an OpenGL zu senden.
-
-                             // Create a vector
-                             vec3d vec1(1.0, 1.0, 1.0);
-                             // Create another vector
-                             vec3d vec2(0.5, -1.0, 2.0);
-                             // Normalize the first vector
-                             vec1.normalize();
-                             // Add the first vector to the second
-                             vec2 = vec1 + vec2;
-                             // Increase the length of the first vector
-                             vec1 *= 10.0;
-                             // Calculate the dot product
-                             double x = dot(vec1, vec2);
-                             // Calculate the cross product
-                             vec3d vec3 = cross(vec1, vec2);
-                             // Get the length
-                             double l = vec3.length();
-                             // Get the components for a vector
-                             double x = vec3.x();
-                             double y = vec3.y();
-                             double z = vec3.z();
-*****************/
   vec3d vec_x(x - 1, get_heightmap_value(x - 1, y), y);
   vec3d vec_y(x, get_heightmap_value(x, y - 1), y - 1);
   vec3d normal = cross(vec_x, vec_y);
+  normal.normalize();
   glNormal3d(normal.x(), normal.y(), normal.z());
 }
 
@@ -283,16 +207,150 @@ void terrain::render_level_lines() {
 
 // Create height lines for the level "level"
 void terrain::create_level_line(int level) {
-  /********
-  Additional Task: Find iso lines with the "Marching Squares" algorithm for the
-                   height value "level". Store the start and end points of the
-                                   found lines in the list "level_lines".
-Zusatzaufgabe:   Finden Sie Hoehenlinien mittels des "Marching
-Squares"-Algorithmus fuer den Hoehenwert "level". Legen Sie die Start- und
-Endpunkte der gefundenen Linien in der Liste "level_lines" ab.
-  *************/
-}
+  int map_width = get_heightmap_width();
+  int map_height = get_heightmap_height();
 
+  // Helper function to linearly interpolate between two points
+  auto interpolate_edge = [&](float x1, float y1, float h1, float x2, float y2,
+                              float h2, float target_level) -> point3d {
+    if (abs(h1 - h2) < 1e-6) {
+      // Heights are essentially equal, use midpoint
+      return point3d((x1 + x2) / 2.0f, target_level, (y1 + y2) / 2.0f);
+    }
+
+    // Linear interpolation factor
+    float t = (target_level - h1) / (h2 - h1);
+    t = std::max(0.0f, std::min(1.0f, t)); // Clamp to [0,1]
+
+    float interp_x = x1 + t * (x2 - x1);
+    float interp_y = y1 + t * (y2 - y1);
+
+    return point3d(interp_x, target_level, interp_y);
+  };
+
+  // Fixed loop bounds to prevent out-of-bounds access
+  for (int y = 0; y < map_height - 1; y++) {
+    for (int x = 0; x < map_width - 1; x++) {
+      // Get the four corner heights
+      float h00 = get_heightmap_value(x, y);         // bottom-left
+      float h10 = get_heightmap_value(x + 1, y);     // bottom-right
+      float h01 = get_heightmap_value(x, y + 1);     // top-left
+      float h11 = get_heightmap_value(x + 1, y + 1); // top-right
+
+      // Create binary configuration (1 if above level, 0 if below)
+      int config = 0;
+      if (h00 > level)
+        config |= 1; // bit 0
+      if (h10 > level)
+        config |= 2; // bit 1
+      if (h01 > level)
+        config |= 4; // bit 2
+      if (h11 > level)
+        config |= 8; // bit 3
+
+      // Calculate interpolated edge intersections
+      point3d edge_points[4];
+
+      // Bottom edge (h00 to h10)
+      edge_points[0] = interpolate_edge(x, y, h00, x + 1, y, h10, level);
+
+      // Right edge (h10 to h11)
+      edge_points[1] =
+          interpolate_edge(x + 1, y, h10, x + 1, y + 1, h11, level);
+
+      // Top edge (h01 to h11)
+      edge_points[2] =
+          interpolate_edge(x, y + 1, h01, x + 1, y + 1, h11, level);
+
+      // Left edge (h00 to h01)
+      edge_points[3] = interpolate_edge(x, y, h00, x, y + 1, h01, level);
+
+      // Generate line segments based on configuration
+      switch (config) {
+      case 0:  // 0000 - all below
+      case 15: // 1111 - all above
+        // No intersection
+        break;
+
+      case 1:                                  // 0001 - only bottom-left above
+        level_lines.push_back(edge_points[3]); // left edge
+        level_lines.push_back(edge_points[0]); // bottom edge
+        break;
+
+      case 2:                                  // 0010 - only bottom-right above
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[1]); // right edge
+        break;
+
+      case 3:                                  // 0011 - bottom edge above
+        level_lines.push_back(edge_points[3]); // left edge
+        level_lines.push_back(edge_points[1]); // right edge
+        break;
+
+      case 4:                                  // 0100 - only top-left above
+        level_lines.push_back(edge_points[2]); // top edge
+        level_lines.push_back(edge_points[3]); // left edge
+        break;
+
+      case 5:                                  // 0101 - left edge above
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[2]); // top edge
+        break;
+
+      case 6: // 0110 - saddle case (ambiguous)
+        // Default resolution: connect bottom-right to top-left
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[2]); // top edge
+        level_lines.push_back(edge_points[1]); // right edge
+        level_lines.push_back(edge_points[3]); // left edge
+        break;
+
+      case 7:                                  // 0111 - only top-right below
+        level_lines.push_back(edge_points[2]); // top edge
+        level_lines.push_back(edge_points[1]); // right edge
+        break;
+
+      case 8:                                  // 1000 - only top-right above
+        level_lines.push_back(edge_points[1]); // right edge
+        level_lines.push_back(edge_points[2]); // top edge
+        break;
+
+      case 9: // 1001 - saddle case (ambiguous)
+        // Default resolution: connect bottom-left to top-right
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[3]); // left edge
+        level_lines.push_back(edge_points[1]); // right edge
+        level_lines.push_back(edge_points[2]); // top edge
+        break;
+
+      case 10:                                 // 1010 - right edge above
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[2]); // top edge
+        break;
+
+      case 11:                                 // 1011 - only top-left below
+        level_lines.push_back(edge_points[3]); // left edge
+        level_lines.push_back(edge_points[2]); // top edge
+        break;
+
+      case 12:                                 // 1100 - top edge above
+        level_lines.push_back(edge_points[3]); // left edge
+        level_lines.push_back(edge_points[1]); // right edge
+        break;
+
+      case 13:                                 // 1101 - only bottom-right below
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[1]); // right edge
+        break;
+
+      case 14:                                 // 1110 - only bottom-left below
+        level_lines.push_back(edge_points[0]); // bottom edge
+        level_lines.push_back(edge_points[3]); // left edge
+        break;
+      }
+    }
+  }
+}
 // Set the light parameters
 void terrain::setup_light() {
   // Enable lighting and colored materials
