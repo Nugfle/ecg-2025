@@ -143,23 +143,32 @@ void terrain::render_terrain() {
   glScaled(2.0 / static_cast<double>(map_width), 1.0 / 256.0,
            2.0 / static_cast<double>(map_height));
 
-  // Go through all rows (-1)
-  for (int y = 0; y < map_height - 1; y++) {
-
-    glBegin(GL_TRIANGLE_STRIP);
-
-    // Draw one strip
-    for (int x = 0; x < map_width; x++) {
-      glTexCoord2d(((double)x) / map_width, ((double)y) / map_height);
-      set_normal(x, y);
-      glVertex3d(x, get_heightmap_value(x, y), y);
-
-      glTexCoord2d(((double)x) / map_width, ((double)y + 1) / map_height);
-      set_normal(x, y + 1);
-      glVertex3d(x, get_heightmap_value(x, y + 1), y + 1);
+  if (!dl_valid) {
+    if (dl_handle == 0) {
+      dl_handle = glGenLists(1);
     }
-    glEnd();
+    glNewList(dl_handle, GL_COMPILE);
+
+    // Go through all rows (-1)
+    for (int y = 0; y < map_height - 1; y++) {
+
+      glBegin(GL_TRIANGLE_STRIP);
+
+      // Draw one strip
+      for (int x = 0; x < map_width; x++) {
+        glTexCoord2d(((double)x) / map_width, ((double)y) / map_height);
+        set_normal(x, y);
+        glVertex3d(x, get_heightmap_value(x, y), y);
+
+        glTexCoord2d(((double)x) / map_width, ((double)y + 1) / map_height);
+        set_normal(x, y + 1);
+        glVertex3d(x, get_heightmap_value(x, y + 1), y + 1);
+      }
+      glEnd();
+    }
+    glEndList();
   }
+  glCallList(dl_handle);
 
   glPopMatrix();
 }
@@ -213,11 +222,6 @@ void terrain::create_level_line(int level) {
   // Helper function to linearly interpolate between two points
   auto interpolate_edge = [&](float x1, float y1, float h1, float x2, float y2,
                               float h2, float target_level) -> point3d {
-    if (abs(h1 - h2) < 1e-6) {
-      // Heights are essentially equal, use midpoint
-      return point3d((x1 + x2) / 2.0f, target_level, (y1 + y2) / 2.0f);
-    }
-
     // Linear interpolation factor
     float t = (target_level - h1) / (h2 - h1);
     t = std::max(0.0f, std::min(1.0f, t)); // Clamp to [0,1]
