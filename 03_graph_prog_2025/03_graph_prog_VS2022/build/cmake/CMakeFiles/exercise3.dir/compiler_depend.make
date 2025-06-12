@@ -2005,8 +2005,8 @@ CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_pr
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdint.h
 
 CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/src/recursive_cubes.cpp.o: /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/src/recursive_cubes.cpp \
-  /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/include/abstract_scene.h \
-  /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/include/recursive_cubes.h \
+  /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/src/abstract_scene.h \
+  /home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/src/recursive_cubes.h \
   /usr/include/GL/freeglut_std.h \
   /usr/include/GL/gl.h \
   /usr/include/GL/glext.h \
@@ -2809,8 +2809,6 @@ CMakeFiles/exercise3.dir/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_pr
 /usr/include/bits/types/struct___jmp_buf_tag.h:
 
 /usr/include/bits/waitstatus.h:
-
-/home/niklas/Programs/ecg/03_graph_prog_2025/03_graph_prog_VS2022/include/recursive_cubes.h:
 
 /usr/include/stdc-predef.h:
 
